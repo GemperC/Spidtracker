@@ -1,0 +1,117 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<main>
+<div class="container-fluid p-1">        
+<center><h2 class="mb-3 fw-semibold" style="color:rgb(83, 83, 83)" >{{ project.project_name }}</h2></center>
+<div class="container-sm p-1 border border-5">
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col"><p class="text-black-50 p-0 m-0"> Description </p></th>
+        <th scope="col"><p class="text-black-50 p-0 m-0"> Created on </p></th>
+        <th scope="col"><p class="text-black-50 p-0 m-0"> Owner </p></th>
+        <th scope="col"><p class="text-black-50 p-0 m-0"> Team </p></th>
+        <th scope="col"><p class="text-black-50 p-0 m-0"> Tags </p></th>
+        <th scope="col"><p class="text-black-50 p-0 m-0">  </p></th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <tr>
+        <td>{{ project.description }}</td>
+        <td>{{ project.pub_date }}</td>
+        <td>{{ project.owner }}</td>
+        <td>
+            <div class="dropdown">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-expanded="false">
+                  {{project.team}}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {% for member in project.team.team_members.all %}
+                  <li><a class="dropdown-item" href="#">{{member}}</a></li>
+                    {% endfor %}
+                </ul>
+              </div>
+        </td>
+        
+        <td>
+            <div class="dropdown">
+                <button class="btn btn-success btn-sm dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-expanded="false">
+                  Tags
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {% for tag in project.tags.all %}
+                  <li><a class="dropdown-item" >{{ tag }}</a></li>
+                    {% endfor %}
+                </ul>
+              </div>
+        </td>
+        <td align="right">
+            <div class="btn-group btn-group-sm " role="group" aria-label="Basic outlined example">
+                  <a type="button" class="btn btn-outline-warning  btn-sm" href="{% url 'showproject' project.id %}">Issues</a>
+                  <a type="button" class="btn btn-outline-info btn-sm" href="{% url 'project_readme' project.id %}">README</a>  
+                                       
+              </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+
+<div class="container-sm p-1 mt-2 border border-2">
+
+
+    
+    <form action= "" method="post">
+        {% csrf_token %}
+        {{ projectURLForm.as_p }}
+        <button type="submit" class="btn btn-primary btn-sm">Show README</button>
+    </form>
+</div>
+
+<div class="container-xl p-1 border border-5 mt-2">
+    <h3 class="mb-2 fw-semibold" >README</h3>
+
+    <p id="test"></p>
+    <pre id="readme-text"></pre>
+    
+</div>
+
+
+
+    <br></br>
+
+  </main>
+
+<script>
+    
+    function gotoURL() {
+        
+        window.open( "{{project.githubURL}}" );
+    }
+    
+
+    function getReadme(githubURL) {
+        githubURLcut = githubURL.slice(19)
+        fetch(`https://api.github.com/repos/${githubURLcut}/contents/README.md`) // Fetch the file from GitHub's api
+            .then(response => response.json())
+            .then(data => {
+                const content = atob(data.content); // Convert from base64 to readable text
+                        document.getElementById("readme-text").textContent = content; // Apply content to the document
+                console.log(content); // Log the content to the console
+            })
+        .catch(error => console.log(error)); // Catch any errors
+    }   
+
+    getReadme("{{project.githubURL}}");
+
+</script>
+
+{% endblock %}
+

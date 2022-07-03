@@ -1,0 +1,96 @@
+{% extends 'base_template.html' %}
+
+{% load static %}
+    <!--Main-->
+    {% block content %}
+
+    <main>
+    <div class="container-xl p-1 border border-5">
+      <!-- Offcanvase to open new project-->
+      <div class="offcanvas offcanvas-end" id="demo">
+
+        <div class="offcanvas-header">
+          <h2 class="offcanvas-title">New Project</h2>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+    
+        <div class="offcanvas-body">
+          <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-sm rounded-pill me-2">Add Project</button>
+          </form>
+        </div>
+    
+      </div>
+      
+      
+        <div  id="content" class="bd-masthead mb-0" style="color:rgb(83, 83, 83)">
+            <h2 class="mb-2 fw-semibold" >Projects</h2>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <a class="btn btn-primary btn-sm rounded-pill me-2" type="button"  data-bs-toggle="offcanvas" data-bs-target="#demo">New Project</a>
+
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col"><p class="text-black-50 p-0 m-0"> Project Name </p></th>
+                    <th scope="col"><p class="text-black-50 p-0 m-0"> Description </p></th>
+                    <th scope="col"><p class="text-black-50 p-0 m-0"> Created on </p></th>
+                    <th scope="col"><p class="text-black-50 p-0 m-0"> Owner </p></th>
+                    <th scope="col"><p class="text-black-50 p-0 m-0"> Team </p></th>
+                    <th scope="col"><p class="text-black-50 p-0 m-0"> Tags </p></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                {% for project in project_list %}
+                  <tr>
+                    <td><a href="{% url 'showproject' project.id %}">{{ project.project_name }}</a></td>
+                    <td>{{ project.description }}</td>
+                    <td>{{ project.pub_date }}</td>
+                    <td>{{ project.owner }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-expanded="false">
+                              {{project.team}}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                {% for member in project.team.team_members.all %}
+                              <li><a class="dropdown-item" href="#">{{member}}</a></li>
+                                {% endfor %}
+                            </ul>
+                          </div>
+                    </td> 
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-success btn-sm dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-expanded="false">
+                              Tags
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                {% for tag in project.tags.all %}
+                              <li><a class="dropdown-item" >{{ tag }}</a></li>
+                                {% endfor %}
+                            </ul>
+                          </div>
+                    </td>
+                  </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                            
+        </div>
+
+
+        </div>
+
+      <br></br>
+
+    </main>
+
+    {% endblock %}
+
+    
+
+

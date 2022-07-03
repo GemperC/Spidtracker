@@ -1,0 +1,22 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+    <div class="container-sm p-1 ">     
+      <h2 class="offcanvas-title">Issue Details</h2>
+
+
+
+      <form action="" method="post">
+
+        {% csrf_token %}
+        {{ editSform.as_p }}
+
+        <button type="submit" class="btn btn-primary btn-sm rounded-pill me-2">Submit Issue</button>
+      </form>
+    </div>
+    <br></br>
+  {% endblock %}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spidtracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'gmt_app/css/button.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'gmt_app/icons/favicon.ico' %}">
+    <style>
+        #grad{
+            height: 100hv;
+            background: rgb(255,255,255);
+            background: radial-gradient(circle, rgba(255,255,255,1) 41%, rgba(197,199,204,1) 59%, rgba(163,174,208,1) 73%, rgba(132,144,181,1) 87%, rgba(80,97,150,1) 100%);
+        }
+    </style>
+</head>
+
+<body>
+
+        
+    <!--Header-->
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark py-2">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color:white;">Spidtacker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active"  style="color:white;"  aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:white;" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:white;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!--Main-->
+    <main>
+        <div  id="content" class="bd-masthead mb-0" style="color:rgb(0, 0, 0)">
+            <div class="container-xxl bd-gutter">
+                <div class="col-md-8 mx-auto text-center">
+                    <!--LOGO-->
+                    {% load static %}
+                    <img src="{% static 'gmt_app/images/gmt_icon.png' %}" alt="GM Tracker icon" class="d-block mx-auto mb-3" width="289" height="289">
+                    <!--Primery text-->
+                    <h1 class="mb-3 fw-semibold" >Project list:</h1>
+                    <!--Secondery text-->
+                    {% for project in project_list %}
+                    <p class="lead mb-4" href="/{{ project.id }}/">
+                        {{ project.project_name }}
+                    </p>
+                    {% endfor %}
+                    <!--buttons (Get Started)-->
+                    <div class="d-felx flex-column flex-lg-row align-items-md-stretch justify-content-md-center gap-3 mb-4">
+                        <button class="btn btn-primary"  type="button" onclick="myFunction()">Logout :(</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!--Footer-->
+    <footer class="bg-dark text-center text-lg-start py-1" style="bottom:0; position: fixed; width: 100%;">
+
+        <div class="text-center p-2"style="color:white;">
+          Made By:
+            <a class="text-white" href="https://spidtracker.herokuapp.com">Tom Cohen</a>
+        </div>
+    </footer>
+
+
+    <script>
+        function myFunction() {
+          location.replace("/logout")
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+</div>
+</body>
+
+</html>
+
