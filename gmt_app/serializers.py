@@ -9,7 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 
-
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team

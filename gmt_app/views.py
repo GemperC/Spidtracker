@@ -10,7 +10,7 @@ from requests import request
 from authlib.integrations.django_client import OAuth
 from django.conf import settings
 from urllib.parse import quote_plus, urlencode
-from .models import Project, Team, User, Issue
+from .models import Project, Team, User, Issue, Tag, BugTag
 from .forms import ProjectForm, IssueForm, ProjectURLForm
 from rest_framework.views import APIView
 
@@ -136,6 +136,18 @@ class IssueView(viewsets.ModelViewSet):
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class TagView(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+class BugTagView(viewsets.ModelViewSet):
+    queryset = BugTag.objects.all()
+    serializer_class = BugTagSerializer 
+
+class TeamView(viewsets.ModelViewSet):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer   
 
 def project_readme(request,project_id):
     project = Project.objects.get(pk=project_id)

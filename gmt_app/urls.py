@@ -8,6 +8,9 @@ router = routers.DefaultRouter()
 router.register('projects',views.ProjectView)
 router.register('issues',views.IssueView)
 router.register('user',views.UserView)
+router.register('tag',views.TagView)
+router.register('bugtag',views.BugTagView)
+router.register('team',views.TeamView)
 
 urlpatterns = [
     path('api/',include(router.urls)),
