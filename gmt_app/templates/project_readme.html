@@ -78,8 +78,7 @@
 <div class="container-xl p-1 border border-5 mt-2">
     <h3 class="mb-2 fw-semibold" >README</h3>
 
-    <p id="test"></p>
-    <pre id="readme-text"></pre>
+    <p id="readme-text"></p>
     
 </div>
 
@@ -88,7 +87,7 @@
     <br></br>
 
   </main>
-
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
     
     function gotoURL() {
@@ -103,7 +102,7 @@
             .then(response => response.json())
             .then(data => {
                 const content = atob(data.content); // Convert from base64 to readable text
-                        document.getElementById("readme-text").textContent = content; // Apply content to the document
+                        document.getElementById("readme-text").innerHTML = marked.parse(content); // Apply content to the document
                 console.log(content); // Log the content to the console
             })
         .catch(error => console.log(error)); // Catch any errors
