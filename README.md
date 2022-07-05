@@ -1,3 +1,4 @@
 # Spidtracker
-An issue tracker app 
-ggg
+An issue tracker app
+
+My first django project
