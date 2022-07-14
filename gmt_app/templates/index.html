@@ -54,7 +54,7 @@
                     </p>
                     <!--buttons (Get Started)-->
                     <div class="d-felx flex-column flex-lg-row align-items-md-stretch justify-content-md-center gap-3 mb-4">
-                        <button class="btn btn-primary" type="button" onclick="myFunction()">Get Started</button>
+                        <a class="btn btn-primary" type="button" href="{% url 'login' %}">Get Started</a>
                     </div>
                     <!--screenshot-->
                     <div class="overflow-hidden" style="max-height: 31vh;">
@@ -76,11 +76,7 @@
     </footer>
 
 
-    <script>
-        function myFunction() {
-          location.replace("/login")
-        }
-    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 </div>

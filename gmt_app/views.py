@@ -17,14 +17,11 @@ from rest_framework.views import APIView
 
 
 def index(request):
-    return render(
-        request,
-        "index.html",
-        context={
+    context={
             "session": request.session.get("user"),
             "pretty": json.dumps(request.session.get("user"), indent=4),
-        },
-    )
+        }
+    return render(request, "index.html",context)
 
 oauth = OAuth()
 
@@ -32,9 +29,7 @@ oauth.register(
     "auth0",
     client_id=settings.AUTH0_CLIENT_ID,
     client_secret=settings.AUTH0_CLIENT_SECRET,
-    client_kwargs={
-        "scope": "openid profile email",
-    },
+    client_kwargs={"scope": "openid profile email",},
     server_metadata_url=f"https://{settings.AUTH0_DOMAIN}/.well-known/openid-configuration",
 )
 
@@ -67,6 +62,8 @@ def all_projects(request):
     project_list = Project.objects.all()
     team_list = Team.objects.all()
 
+    token=request.user
+
     #check if the project form was filled
     if request.method == "POST":
         form = ProjectForm(request.POST)
@@ -75,7 +72,7 @@ def all_projects(request):
             return HttpResponseRedirect('/projects')
     else:
         form = ProjectForm
-        context = {'project_list': project_list, 'team_list': team_list, 'form':form}
+        context = {'project_list': project_list, 'team_list': team_list, 'form':form, 'token':token}
         return render(request, 'projects.html',context)
 
 
